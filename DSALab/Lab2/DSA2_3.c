@@ -102,6 +102,7 @@ Node *swap(Node *head, int n) {
     }
     Node *node = temp1->next;
     Node *noden = node->next;
+
     Node *dummy = noden->next;
     noden->next = node;
     node->next = dummy;

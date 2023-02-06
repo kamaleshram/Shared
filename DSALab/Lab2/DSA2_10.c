@@ -44,7 +44,6 @@ int main() {
   scanf("%d", &n);
   country carray[n];
   readcarray(carray, n);
-  char *sortedctries[n];
   sortctries(carray, n);
   for (int i = 0; i < n; i++) {
     printf("%s\n", carray[i].ctryname);

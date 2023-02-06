@@ -117,8 +117,7 @@ Node *removeRepeatedNodes(Node *head) {
         temp = temp->next;
         continue;
       }
-    }
-    if (temp != NULL)
+    } else if (temp != NULL)
       temp = temp->next;
   }
   return head;

@@ -12,8 +12,8 @@ void generateId(student *s) {
   for (int i = 0; i < 4; i++) {
     idyr[i] = s->email[i + 1];
   }
-  strcpy(s->id, idyr);
   idyr[4] = '\0';
+  strcpy(s->id, idyr);
   strcat(s->id, "A");
   if (strcmp(s->bname, "CS") == 0)
     strcat(s->id, "7");
@@ -33,8 +33,8 @@ void generateId(student *s) {
 int main() {
   student s1;
   char id[20];
-  gets(s1.email);
-  gets(s1.bname);
+  scanf("%s", s1.email);
+  scanf("%s", s1.bname);
   generateId(&s1);
   printf("%s", s1.id);
 }
