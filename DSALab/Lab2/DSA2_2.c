@@ -85,28 +85,75 @@ int getSize(Node *head) {
   return n;
 }
 
-Node *swap(Node *head, int a, int b) {
-  Node *el1b, *el2b, *el1, *el2, *temp;
-  for (int i = 1; i < a - 1; i++) {
-    el1b = el1b->next;
+Node *mergeLists(Node *head1, Node *head2) {
+  int n1 = getSize(head1);
+  int n2 = getSize(head2);
+
+  Node *head = NULL;
+  Node *temp1 = head1;
+  Node *temp2 = head2;
+  int i = 0;
+  int flag1 = 0;
+  int flag2 = 0;
+  while ((temp1 != NULL) || (temp2 != NULL)) {
+
+    if (temp2 == NULL) {
+      if (head == NULL) {
+        head = addToList(head, temp1->data);
+      } else {
+        addToList(head, temp1->data);
+      }
+      temp1 = temp1->next;
+      continue;
+    }
+
+    if (temp1 == NULL) {
+      if (head == NULL) {
+        head = addToList(head, temp2->data);
+      } else {
+        addToList(head, temp2->data);
+      }
+      temp2 = temp2->next;
+      continue;
+    }
+
+    if (temp1->data <= temp2->data) {
+      if (head == NULL) {
+        head = addToList(head, temp1->data);
+      } else {
+        addToList(head, temp1->data);
+      }
+      temp1 = temp1->next;
+
+      continue;
+    }
+
+    if (temp2->data <= temp1->data) {
+      if (head == NULL) {
+        head = addToList(head, temp2->data);
+      } else {
+        addToList(head, temp2->data);
+      }
+      temp2 = temp2->next;
+
+      continue;
+    }
   }
 
-  for (int i = 1; i < b; i++) {
-    el2b = el2b->next;
-  }
-  el1 = el1b->next;
-  el2 = el2b->next;
-
-  temp = el1->next;
-
-  el1->next = el2->next;
-  el2->next = temp;
-  el1b->next = el2;
-  el2b->next = el1;
+  return head;
 }
 
 int main(void) {
-  Node *head = readList();
-  swap(head, 5, 7);
+  Node *head1 = readList();
+  Node *head2 = readList();
+
+  Node *merged = mergeLists(head1, head2);
+
+  printList(merged);
+
+  freeList(head1);
+  freeList(head2);
+  freeList(merged);
+
   return 0;
 }
