@@ -71,45 +71,105 @@ void freeList(Node *head) {
   return;
 }
 
-Node *delNode(Node *temp) { return temp; }
+Node *delNode(Node *head, Node *temp) {
+  if (temp == NULL)
+    return head;
+
+  else if (temp == head) {
+    head = head->next;
+    if (head != NULL)
+      head->prev = NULL;
+    // free(temp);
+  }
+
+  else {
+    Node *tempp = temp->prev;
+    Node *tempn = temp->next;
+    if (tempp != NULL)
+      tempp->next = tempn;
+    if (tempn != NULL)
+      tempn->prev = tempp;
+    temp->next = NULL;
+    temp->prev = NULL;
+    // free(temp);
+  }
+
+  return head;
+}
 
 int *formTeams(Node *head) {
   int *teamsum = (int *)malloc(2 * sizeof(int));
   int *teamsumfr = (int *)calloc(2, sizeof(int));
+  int *teams = (int *)malloc(2 * sizeof(int));
+  int *teamsfr = (int *)calloc(2, sizeof(int));
+
   Node *tempn = head, *tempp = head;
 
   while (tempp->next != NULL)
     tempp = tempp->next;
 
   teamsum[0] = tempn->data;
-  tempn = tempn->next;
+  teams[0]++;
   teamsum[1] = tempp->data;
-  tempp = tempp->prev;
+  teams[1]++;
+  Node *deltempn = tempn;
+  Node *deltempp = tempp;
 
-  while (((tempp != NULL) || (tempn != NULL)) && (tempp->next != tempn->prev)) {
-    if (teamsum[0] < teamsum[1]) {
+  if (tempn != NULL)
+    tempn = tempn->next;
+  if (tempp != NULL)
+    tempp = tempp->prev;
+
+  head = delNode(head, deltempn);
+  head = delNode(head, deltempp);
+
+  while (((tempp != NULL) || (tempn != NULL)) && (tempp != tempn)) {
+    if (((tempn != NULL)) && (teamsum[0] < teamsum[1])) {
       teamsum[0] += tempn->data;
+      teams[0]++;
+      Node *deltempn = tempn;
       tempn = tempn->next;
+      head = delNode(head, deltempn);
     }
 
-    else if (teamsum[0] > teamsum[1]) {
+    else if (((tempp != NULL)) && (teamsum[0] > teamsum[1])) {
       teamsum[1] += tempp->data;
+      teams[1]++;
+      Node *deltempp = tempp;
       tempp = tempp->prev;
+      head = delNode(head, deltempp);
     }
 
     else if (teamsum[0] == teamsum[1]) {
-      printf("Inside\n");
-      printf("%d\n", tempn->data);
-      printf("%d\n", tempp->data);
-      teamsumfr[0] = teamsum[0];
-      teamsumfr[1] = teamsum[1];
-      teamsum[0] += tempn->data;
-      teamsum[1] += tempp->data;
-      tempn = tempn->next;
-      tempp = tempp->prev;
+      teamsfr[0] = teams[0];
+      teamsfr[1] = teams[1];
+
+      teams[0]++;
+      teams[1]++;
+
+      Node *deltempn = tempn;
+      Node *deltempp = tempp;
+
+      if (tempn != NULL) {
+        teamsum[0] += tempn->data;
+        tempn = tempn->next;
+      }
+
+      if (tempp != NULL) {
+        teamsum[1] += tempp->data;
+        tempp = tempp->prev;
+      }
+
+      head = delNode(head, deltempn);
+      head = delNode(head, deltempp);
     }
   }
-  return teamsumfr;
+
+  if ((tempp != NULL) && (tempn != NULL) && (teamsum[0] == teamsum[1])) {
+    teamsfr[0] = teams[0];
+    teamsfr[1] = teams[1];
+  }
+  return teamsfr;
 }
 
 int main() {
@@ -117,6 +177,5 @@ int main() {
   int *teams;
   teams = formTeams(head);
   printf("%d %d", teams[0], teams[1]);
-  freeList(head);
   free(teams);
 }
