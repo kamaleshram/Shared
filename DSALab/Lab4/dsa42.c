@@ -58,11 +58,10 @@ int check(int arr[], int a, int n) {
 }
 
 int findScore(int arr[], int n) {
-  int max;
+  int max = arr[0];
   if (arr[0] >= n)
     return n;
 
-  max = arr[n - 1];
   for (int i = 0; i < n; i++) {
     if (check(arr, arr[i], n) == 1)
       max = arr[i];
