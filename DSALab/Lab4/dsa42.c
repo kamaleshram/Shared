@@ -44,29 +44,16 @@ void mergeSort(int arr[], int l, int r) {
     merge(arr, l, m, r);
   }
 }
-
-int check(int arr[], int a, int n) {
-  int count = 0;
-  for (int i = 0; i < n; i++) {
-    if (arr[n - i - 1] >= a)
-      count++;
-  }
-  if (count == a)
-    return 1;
-  else
-    return 0;
-}
-
 int findScore(int arr[], int n) {
-  int max = arr[0];
-  if (arr[0] >= n)
-    return n;
-
-  for (int i = 0; i < n; i++) {
-    if (check(arr, arr[i], n) == 1)
-      max = arr[i];
+  for (long int i = 0; i < n; i++) {
+    if (arr[i] >= n - i) {
+      return n - i;
+      break;
+    } else
+      continue;
   }
-  return max;
+
+  return 0;
 }
 
 int main() {
