@@ -13,13 +13,8 @@ void findWinners(int votes[], int n, int winners[], int a) {
     vote[i].cand = i + 1;
   }
 
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
-      if (votes[j] == i + 1) {
-        vote[i].freq++;
-      }
-    }
-  }
+  for (int i = 0; i < n; i++)
+    vote[votes[i] - 1].freq++;
 
   for (int i = 0; i < n - 1; i++) {
     for (int j = 0; j < n - i - 1; j++) {
