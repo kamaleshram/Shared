@@ -1,21 +1,33 @@
-#include<stdio.h>
+#include <stdio.h>
+
+#define MAXN 100005
+
+int n, a[MAXN], counts[MAXN], firstNonRepeating[MAXN], stack[MAXN], top = -1;
 
 int main() {
-    int n;
-    scanf("%d", &n);
-    int a[n], freq[100001] = {0}, ans[n];
-    for(int i = 0; i < n; i++) {
-        scanf("%d", &a[i]);
-        freq[a[i]]++;
-        ans[i] = -1; // initialize ans array with -1
-        for(int j = 0; j <= i; j++) {
-            if(freq[a[j]] == 1) {
-                ans[j] = a[j];
-            }
-        }
+  scanf("%d", &n);
+  for (int i = 1; i <= n; i++) {
+    scanf("%d", &a[i]);
+    counts[a[i]]++;
+
+    while (top >= 0 && counts[a[stack[top]]] > 1) {
+      top--;
     }
-    for(int i = 0; i < n; i++) {
-        printf("%d ", ans[i]);
+
+    if (top < 0) {
+      firstNonRepeating[i] = a[i];
+    } else {
+      firstNonRepeating[i] = a[stack[top]];
     }
-    return 0;
+
+    top++;
+    stack[top] = i;
+  }
+
+  for (int i = 1; i <= n; i++) {
+    printf("%d ", firstNonRepeating[i]);
+  }
+  printf("\n");
+
+  return 0;
 }

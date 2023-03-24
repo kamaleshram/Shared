@@ -9,8 +9,7 @@ int main() {
   for (int i = 0; i < n; i++)
     cin >> a[i];
 
-  stack<pair<int, int> >
-      s; // pair of student's assigned integer and number of rooms to cross
+  stack<pair<int, int> > s; // pair of student's assigned integer and number of rooms to cross
   for (int i = 0; i < n; i++) {
     int rooms = 0;
     while (!s.empty() && s.top().first < a[i]) {

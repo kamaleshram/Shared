@@ -8,6 +8,7 @@ string simplifyPath(string path) {
   stack<string> st;
   int n = path.length();
   int i = 0;
+  
   while (i < n) {
     // Ignore any leading slashes
     while (i < n && path[i] == '/')
@@ -24,12 +25,14 @@ string simplifyPath(string path) {
       st.push(dir);
     }
   }
+  
   // Construct the simplified path
   string res = "";
   while (!st.empty()) {
     res = "/" + st.top() + res;
     st.pop();
   }
+  
   // Check if path is empty and return "/"
   if (res == "")
     res = "/";
@@ -39,6 +42,6 @@ string simplifyPath(string path) {
 int main() {
   string s;
   cin >> s;
-  cout << simplifyPath(s) << endl; // Output: /c
+  cout << simplifyPath(s) << endl;
   return 0;
 }
