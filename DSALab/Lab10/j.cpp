@@ -1,26 +1,23 @@
-#include <bits/stdc++.h>
+#include <bits/stdc++.h> 
 using namespace std;
 
-int kth_smallest(vector<vector<int>>& matrix, int n, int k) {
-    int low = matrix[0][0];
-    int high = matrix[n-1][n-1];
+int kth_smallest(vector<vector<int>> matrix, int n, int k) {
+    int low = matrix[0][0], high = matrix [n-1][n-1];
 
     while (low < high) {
         int mid = (low + high) / 2;
-        int count = 0, j = 0;
-        
+        int count = 0, j = n - 1;
+
         for (int i = 0; i < n; i++) {
-            while (j < n && matrix[i][j] <= mid) {
-                j++;
-            }
-            count += j;
+            while (j >= 0 && matrix[i][j] > mid)
+                j--;
+            count += j + 1;
         }
-        
-        if (count < k) {
+
+        if (count < k)
             low = mid + 1;
-        } else {
+        else
             high = mid;
-        }
     }
 
     return low;
