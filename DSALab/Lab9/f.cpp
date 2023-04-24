@@ -12,19 +12,37 @@ int main()
         cin >> input[i];
 
     sort(input.begin(), input.end());
-    int l = 0, r = 0;
-
-    while (r < n)
+    if (n % 2 == 0)
     {
-        if (input[r] - input[l] >= d)
+        int l = 0, r = n / 2;
+        while (l < n / 2 && r < n)
         {
-            count++;
-            l++;
-            r++;
-        }
 
-        else
-            r++;
+            if (input[r] - input[l] >= d)
+            {
+                count++;
+                l++;
+                r++;
+            }
+            else
+                r++;
+        }
+    }
+    else
+    {
+        int l = 0, r = n / 2 + 1;
+        while (l < n / 2 && r < n)
+        {
+
+            if (input[r] - input[l] >= d)
+            {
+                count++;
+                l++;
+                r++;
+            }
+            else
+                r++;
+        }
     }
 
     cout << count << endl;

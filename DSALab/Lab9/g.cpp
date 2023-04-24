@@ -10,19 +10,16 @@ int main()
 {
     int n;
     cin >> n;
-
     vector<string> nums(n);
+
     for (int i = 0; i < n; i++)
         cin >> nums[i];
 
     sort(nums.begin(), nums.end(), cmp);
 
-    string ans = "";
-
+    string k = "";
     for (int i = 0; i < n; i++)
-        ans += nums[i];
+        k += nums[i];
 
-    cout << ans << endl;
-
-    return 0;
+    cout << k << endl;
 }

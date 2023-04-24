@@ -1,36 +1,36 @@
-// Wrong soluti0n
+// C++ program for the above approach
 #include <bits/stdc++.h>
 using namespace std;
+
+int findSubArrays(vector<int> &arr, int n, int k)
+{
+    int minsum = 0, result = 0;
+    unordered_map<int, int> mp;
+
+    for (int i = 0; i < n; i++)
+    {
+        minsum += arr[i] - k;
+
+        if (minsum == 0)
+            result++;
+
+        if (mp.find(minsum) != mp.end())
+            result += mp[minsum];
+
+        mp[minsum]++;
+    }
+
+    return result;
+}
 
 int main()
 {
     int n, k;
     cin >> n >> k;
 
-    vector<int> a(n);
+    vector<int> arr(n);
     for (int i = 0; i < n; i++)
-    {
-        cin >> a[i];
-    }
+        cin >> arr[i];
 
-    int ans = 0;
-    vector<double> prefix_sum(n + 1);
-    for (int i = 0; i < n; i++)
-    {
-        prefix_sum[i + 1] = prefix_sum[i] + a[i];
-    }
-
-    map<double, int> cnt;
-    for (int r = 1; r <= n; r++)
-    {
-        double l_sum = prefix_sum[r] - k * r;
-        if (cnt.count(l_sum))
-        {
-            ans += cnt[l_sum];
-        }
-        cnt[l_sum + k * r] += 1;
-    }
-
-    cout << ans << endl;
-    return 0;
+    cout << findSubArrays(arr, n, k) << endl;
 }

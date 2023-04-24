@@ -1,32 +1,29 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 int main()
 {
-    int n, bottles = 0, happiness = 0, testhappiness = 0;
+    int n, sum = 0;
     cin >> n;
-    vector<int> input;
+    int ans = n;
+
+    priority_queue<int, vector<int>, greater<int>> minheap;
+
     for (int i = 0; i < n; i++)
     {
         int val;
         cin >> val;
-        input.push_back(val);
-    }
 
-    sort(input.begin(), input.end(), greater<>());
+        minheap.push(val);
+        sum += val;
 
-    for (auto i : input)
-    {
-        testhappiness += i;
-        if (testhappiness >= 0)
+        if (sum < 0)
         {
-            happiness += i;
-            bottles++;
+            sum -= minheap.top();
+            minheap.pop();
+            ans--;
         }
-        else
-            break;
     }
 
-    cout << bottles << endl;
+    cout << ans << endl;
 }
