@@ -19,10 +19,12 @@ int search(int m, int mat[m][], int n, int x)
 	// set indexes for top right element
 	int i = 0, j = n - 1;
 	while (i < n && j >= 0) {
+		
 		if (mat[i][j] == x) {
 			cout << "Element found at " << i << ", " << j;
 			return 1;
 		}
+		
 		if (mat[i][j] > x)
 			j--;
 
@@ -35,7 +37,6 @@ int search(int m, int mat[m][], int n, int x)
 	return 0;
 }
 
-// Driver code
 int main()
 {
 	int m, n;
@@ -50,11 +51,8 @@ int main()
     int val;
     cin >> val;
 
-	// Function call
 	search(m, mat, n, val);
 
 	return 0;
 }
 
-// This code is contributed
-// by Akanksha Rai(Abby_akku)

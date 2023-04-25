@@ -59,7 +59,7 @@ int main() {
     for(int i = 0; i < n; i++) {
         cin >> arr[i];
     }
-    ll ans = inversion_count(arr, n);
-    cout << ans << endl;
+
+    cout << inversion_count(arr, n) << endl;
     return 0;
 }

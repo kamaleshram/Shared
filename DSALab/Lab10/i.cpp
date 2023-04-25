@@ -20,6 +20,7 @@ int main() {
 
     if (total_a != total_b) {
         int d = abs(total_a - total_b);
+
         if (d % 2 == 1) {
             cout << "No" << endl;
             return 0;
@@ -33,17 +34,15 @@ int main() {
             if (abs(a[i] - b[j]) == d / 2) {
                 cout << "Yes" << endl;
                 return 0;
-            } else if (a[i] > b[j]) {
+            } else if (a[i] > b[j])
                 i++;
-            } else {
+            else
                 j++;
-            }
         }
 
         cout << "No" << endl;
-    } else {
+    } else
         cout << "Yes" << endl;
-    }
 
     return 0;
 }

@@ -2,14 +2,16 @@
 
 using namespace std;
 
+bool fun(pair<int, int>& a,pair<int, int>& b) {
+    if (a.first == b.first)
+        return a.second > b.second;
+    return a.first < b.first;
+}
+
+
 int max_nested_dolls(vector<pair<int, int>>& dolls) {
     int n = dolls.size();
-    sort(dolls.begin(), dolls.end(), [](const auto& a, const auto& b) {
-        if (a.first == b.first) {
-            return a.second > b.second;
-        }
-        return a.first < b.first;
-    });
+    sort(dolls.begin(), dolls.end(), fun);
 
     vector<int> nesting;
     for (int i = 0; i < n; i++) {
